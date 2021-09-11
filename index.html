@@ -9,12 +9,232 @@
 </head>
 <body>
     
-    <h1>Template initialized</h1>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Nombre" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
-      </div>
+    <div class="container">
+        <div class="row">
+            <h1>Perfilador - Consultas</h1>
+        </div>
+        <div class="row">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Nombre" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                    <th>Mas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <!-------Fila 1------->
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#uno" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Mostrar
+                            </a>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td colspan="5">
+                            <div class="collapse" id="uno">
+                                <table class="table table-secondary">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Seccion</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Datos</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--Hogar-->
+                                        <tr>
+                                            <th>Hogar</th>
+                                            <td>$00.00</td>
+                                            <td>
+                                                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#datos-uno" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    Mostrar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="collapse" id="datos-uno">
+                                                    <table class="table table-light">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Renta</th>
+                                                            <th scope="col">Mantenimiento</th>
+                                                            <th scope="col">Renta</th>
+                                                            <th scope="col">Gasolina</th>
+                                                            <th scope="col">Luz</th>
+                                                            <th scope="col">Cable</th>
+                                                            <th scope="col">Agua</th>
+                                                            <th scope="col">Internet</th>
+                                                            <th scope="col">Tv</th>
+                                                            <th scope="col">Plataformas</th>
+                                                            <th scope="col">Super</th>
+                                                            <th scope="col">Servicios</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td> 
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      <!--Estilo de Vida-->
+                                        <tr>
+                                            <th >Estilo de Vida</th>
+                                            <td>$00.00</td>
+                                            <td>
+                                                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#datos-dos" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    Mostrar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="collapse" id="datos-dos">
+                                                    <table class="table table-light">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Entretenimiento</th>
+                                                            <th scope="col">Gimnasio</th>
+                                                            <th scope="col">Viajes</th>
+                                                            <th scope="col">Ropa</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--Finanzas-->
+                                        <tr>
+                                            <th >Finanzas</th>
+                                            <td>$00.00</td>
+                                            <td>
+                                                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#datos-tres" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    Mostrar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="collapse" id="datos-tres">
+                                                    <table class="table table-light">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Seguro de Vida</th>
+                                                            <th scope="col">Fondo de Inversion</th>
+                                                            <th scope="col">Seguro de Autos</th>
+                                                            <th scope="col">Seguro de Hogar</th>
+                                                            <th scope="col">Fondo de ahorro</th>
+                                                            <th scope="col">Seguro Gastos Medico</th>
+                                                            <th scope="col">Otros</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--Ingresos-->
+                                        <tr>
+                                            <th >Ingresos</th>
+                                            <td>$00.00</td>
+                                            <td>
+                                                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#datos-cuatro" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    Mostrar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="collapse" id="datos-cuatro">
+                                                    <table class="table table-light">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Seguro de Vida</th>
+                                                            <th scope="col">Fondo de Inversion</th>
+                                                            <th scope="col">Seguro de Autos</th>
+                                                            <th scope="col">Seguro de Hogar</th>
+                                                            <th scope="col">Fondo de ahorro</th>
+                                                            <th scope="col">Seguro Gastos Medico</th>
+                                                            <th scope="col">Otros</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                            <td>$00.00</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-------Fila 2-------->
+
+                    
+
+                </tbody>
+              </table>
+        </div>
+    </div>
 
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
