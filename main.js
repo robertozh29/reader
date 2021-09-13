@@ -14,6 +14,14 @@ Vue.component('usuarios',{
                 {
                     id:3,
                     nombre: "Felipe"
+                },
+                {
+                    id:4,
+                    nombre: "Andrea"
+                },
+                {
+                    id:5,
+                    nombre: "Ana"
                 }
             ]
         }
@@ -72,6 +80,11 @@ Vue.component('secciones',{
     props:{
         id: String
     },
+    data(){
+        return{
+            secciones: ["Hogar", "EstiloDeVida", "Finanzas", "Ingresos"]
+        }
+    },
     template:
     `<tr>
         <td colspan="8">
@@ -84,12 +97,67 @@ Vue.component('secciones',{
                             <th scope="col">Datos</th>
                         </tr>
                     </thead>
+                    <tbody v-for="seccion,index in secciones" :key="index">
+                        <seccion :nombre="nombre(index)" :idDatos="genId(nombre(index))"/> 
+                        <datos :id="genId(nombre(index))" />
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>`,
+    methods:{
+        nombre(index){
+            return this.secciones[index];
+        },
+        genId(nombre){
+            return nombre + this.id
+        }
+    }
+
+})
+
+Vue.component('seccion',{
+    props:{
+        datos: Object,
+        nombre: String,
+        idDatos: String
+    },
+    template:
+    `<tr>
+        <th>{{nombre}}</th>
+        <td>$00.00</td>
+        <td>
+            <a class="btn btn-secondary" data-bs-toggle="collapse" :href="'#'+idDatos" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Mostrar
+            </a>
+        </td>
+    </tr>`
+})
+
+Vue.component('datos',{
+    props:{
+        id: String
+    },
+    template:
+    `<tr>
+        <td colspan="5">
+            <div class="collapse" :id="id">
+                <table class="table table-light">
+                    <thead>
+                    <tr>
+                        <th scope="col">Entretenimiento</th>
+                        <th scope="col">Gimnasio</th>
+                        <th scope="col">Viajes</th>
+                        <th scope="col">Ropa</th>
+                    </tr>
+                    </thead>
                     <tbody>
-                        <seccion /> 
-                        <seccion /> 
-                        <seccion /> 
-                        <seccion /> 
-                        <seccion /> 
+                    <tr>
+                        <td>$00.00</td>
+                        <td>$00.00</td>
+                        <td>$00.00</td>
+                        <td>$00.00</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -97,26 +165,10 @@ Vue.component('secciones',{
     </tr>`
 })
 
-Vue.component('seccion',{
-    props:{
-        datos: Object
-    },
-    template:
-    `<tr>
-        <th>Hogar</th>
-        <td>$00.00</td>
-        <td>
-            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#uno" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Mostrar
-            </a>
-        </td>
-    </tr>`
-})
-
 Vue.component('pagination',{
     template:
     `<nav aria-label="Page navigation example">
-        <ul class="pagination">
+        <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
