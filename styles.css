@@ -3,3 +3,8 @@
   padding: 5%;
   color: #fff;
 }
+
+td,
+th {
+  text-transform: capitalize;
+}

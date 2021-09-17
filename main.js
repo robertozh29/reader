@@ -1,29 +1,9 @@
 
 Vue.component('usuarios',{
-    data(){
-        return{
-            usuarios:[
-                {
-                    id:1,
-                    nombre: "Roberto"
-                },
-                {
-                    id:2,
-                    nombre: "Alex"
-                },
-                {
-                    id:3,
-                    nombre: "Felipe"
-                },
-                {
-                    id:4,
-                    nombre: "Andrea"
-                },
-                {
-                    id:5,
-                    nombre: "Ana"
-                }
-            ]
+    props:{
+        usuarios:{
+            type: Object,
+            required: true
         }
     },
     template:
@@ -42,12 +22,16 @@ Vue.component('usuarios',{
         </thead>
         <tbody v-for="usuario in usuarios" :key="usuario.id">
             <usuario :usuario="usuario" :id="genId(usuario)" />
-            <secciones :id="genId(usuario)" />
+            <secciones :usuario="usuario" :id="genId(usuario)" />
         </tbody>
     </table>`,
     methods:{  
         genId(usuario){
-            var id = usuario.nombre + usuario.id 
+            if(Number.isInteger(usuario.nombre)){
+                var id = "default" + usuario.id
+            }else{
+                var id = usuario.nombre + usuario.id 
+            } 
             return id;
         }
     }
@@ -61,13 +45,13 @@ Vue.component('usuario',{
     },
     template: 
     `<tr>
-        <th>{{this.usuario.nombre}}</th>
+        <th>{{this.usuario.id}}</th>
         <td>{{this.usuario.nombre}}</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td>{{this.usuario.nacimiento}}</td>
+        <td>{{this.usuario.telefono}}</td>
+        <td>{{this.usuario.correo}}</td>
+        <td>{{this.usuario.estadocivil}}</td>
+        <td>{{this.usuario.hijos}}</td>
         <td>
             <button class="btn btn-primary" data-bs-toggle="collapse" :href="'#'+id" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <i class="bi bi-plus-square"></i>
@@ -78,7 +62,8 @@ Vue.component('usuario',{
 
 Vue.component('secciones',{
     props:{
-        id: String
+        id: String,
+        usuario: Object
     },
     data(){
         return{
@@ -97,20 +82,35 @@ Vue.component('secciones',{
                             <th scope="col">Datos</th>
                         </tr>
                     </thead>
-                    <tbody v-for="seccion,index in secciones" :key="index">
-                        <seccion :nombre="nombre(index)" :idDatos="genId(nombre(index))"/> 
-                        <datos :id="genId(nombre(index))" />
+                    <tbody v-for="seccion,index in getSecciones" :key="index">
+                        <seccion :nombre="nombre(index)" :idDatos="genId(secciones[index])" :total="total(seccion[0])"/> 
+                        <datos :id="genId(secciones[index])"  :seccion="seccion"/>
                     </tbody>
                 </table>
             </div>
         </td>
     </tr>`,
+    computed:{
+        getSecciones: function(){
+            return [this.usuario.hogar, this.usuario.estilodevida, this.usuario.finanzas, this.usuario.ingresos]
+        }
+    },
     methods:{
-        nombre(index){
+        nombre(index){     
             return this.secciones[index];
         },
         genId(nombre){
             return nombre + this.id
+        },
+        total(seccion){
+            var total = 0;
+            seccion = Object.values(seccion);
+            seccion.splice(0, 2);
+            seccion.forEach(dato => {
+                total += parseInt(dato) ? parseInt(dato) : 0;
+                
+            });
+            return total;
         }
     }
 
@@ -120,12 +120,13 @@ Vue.component('seccion',{
     props:{
         datos: Object,
         nombre: String,
-        idDatos: String
+        idDatos: String,
+        total: String
     },
     template:
     `<tr>
         <th>{{nombre}}</th>
-        <td>$00.00</td>
+        <td>{{'$' + total}}</td>
         <td>
             <a class="btn btn-secondary" data-bs-toggle="collapse" :href="'#'+idDatos" role="button" aria-expanded="false" aria-controls="collapseExample">
                 Mostrar
@@ -136,7 +137,8 @@ Vue.component('seccion',{
 
 Vue.component('datos',{
     props:{
-        id: String
+        id: String,
+        seccion: Object
     },
     template:
     `<tr>
@@ -145,27 +147,48 @@ Vue.component('datos',{
                 <table class="table table-light">
                     <thead>
                     <tr>
-                        <th scope="col">Entretenimiento</th>
-                        <th scope="col">Gimnasio</th>
-                        <th scope="col">Viajes</th>
-                        <th scope="col">Ropa</th>
+                        <th scope="col" v-for="index in getIndex">
+                            {{index}}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>$00.00</td>
-                        <td>$00.00</td>
-                        <td>$00.00</td>
-                        <td>$00.00</td>
+                        <td v-for="value in getValues">
+                            {{'$'+value}}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </td>
-    </tr>`
+    </tr>`,
+    computed:{
+        getIndex: function(){
+            if(this.seccion[0]){
+                keys = Object.keys(this.seccion[0]);
+                return keys.splice(2)
+            }else{
+                return null;
+            }
+        },
+        getValues: function(){
+            if(this.seccion[0]){
+                keys = Object.values(this.seccion[0]);
+                return keys.splice(2)
+            }else{
+                return null;
+            }
+            
+        }
+    }
 })
 
-Vue.component('pagination',{
+Vue.component('Pagination',{
+    props:{
+        'actualizar': Function,
+        rows: Number
+    },  
     template:
     `<nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -174,22 +197,61 @@ Vue.component('pagination',{
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li v-for="(page,index) in calcPages" class="page-item">
+                <a class="page-link" href="#" @click="actualizar(index)">1</a>
+            </li>
+            
             <li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
-    </nav>`
+    </nav>`,
+    computed:{
+        calcPages: function(){
+            const pages = this.rows/10;
+            return Math.round(pages);
+        }
+    },  
+    methods:{
+        actualizar(position){
+            this.actualizar(position)
+        }
+    }
 })
 
 
 var app = new Vue({
     el: '#app',
     data:{
-
+        usuarios: [],
+        rows: 0,
+        currentRows: 0
+    },
+    methods:{
+        async setUsuarios(rows) {
+            const datos = { "table": 'usuarios', "rows" : rows};
+            // GET request using fetch with async/await
+            const response = await fetch('http://perfilador.telescopiomx.com/API_Perfilador/api/read.php',{
+            // const response = await fetch("http://localhost/API_Perfilador/api/read.php",{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            });
+            const data = await response.json();
+            this.rows = data.rows
+            delete data["rows"];
+            this.usuarios = data;
+        },
+        actualizar(position){
+            this.currentRows = (5*position);
+            this.setUsuarios(this.currentRows);
+        }
+    },
+    beforeMount(){
+        this.setUsuarios(0)
     }
 })
